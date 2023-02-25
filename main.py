@@ -1,6 +1,7 @@
 import argparse
 import shutil
 from pathlib import Path
+from operator import itemgetter
 
 
 _LOG_FILENAME = 'result.jsonl'
@@ -59,13 +60,15 @@ def _create_dir(dir_path: Path, *, force_write: bool = False) -> None:
 def _merge_files(result_log_path: Path, log_a_dir: Path, log_b_dir: Path) -> None:
     """Метод для слияния 2-х json файлов"""
 
-    with result_log_path.open('w') as result_file:
+    with result_log_path.open('a+') as result_file:
 
         with open(log_a_dir, 'r') as file_a:
             result_file.write(file_a.read())
 
         with open(log_b_dir, 'r') as file_b:
             result_file.write(file_b.read())
+
+        sorted(result_file, key=itemgetter('timestamp'))
 
 
 def _add_result_file(output_dir: Path, log_a_dir: Path, log_b_dir: Path) -> None:
