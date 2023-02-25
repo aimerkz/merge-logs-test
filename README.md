@@ -11,7 +11,8 @@ cd merge-logs-test
 - Cоздайте и активируйте виртуальное окружение:
 ```sh
 python3 -m venv venv
-source venv/Scripts/activate
+source venv/Scripts/activate # for Windows
+source venv/bin/activate # for Linux
 ```
 
 - Запустите скрипт для генерации файлов с логами:
